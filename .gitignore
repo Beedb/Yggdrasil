@@ -1,0 +1,22 @@
+# Dados e segredos de quem usa: nunca vão para o repositório
+dados.json
+dados.bak.json
+*.tmp
+perfis.json
+perfis/
+backups/
+email-config.json
+email-token*.json
+email-contas/
+ia-config.json
+resumos/
+servidor-config.json
+anuncio.json
+
+# Coisas pessoais / geradas
+android/*.idsig
+*.p12
+*.jks
+*.keystore
+__pycache__/
+*.pyc
