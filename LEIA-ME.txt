@@ -1,0 +1,165 @@
+YGGDRASIL
+=========
+Painel do dia a dia: links favoritos e coleções, agenda, tarefas e notas.
+Tudo local, funciona offline (só os ícones dos sites vêm da internet).
+
+
+COMO INSTALAR
+-------------
+Precisa só do Python 3.9 ou mais novo. Não há mais nada para instalar.
+
+Windows
+  1. Extraia o .zip numa pasta sua (ex.: Documentos\Yggdrasil).
+  2. Dê dois cliques em windows\instalar.bat.
+     Se faltar o Python, ele oferece instalar (pelo winget) ou abre o site
+     python.org. Ao instalar pelo site, marque "Add python.exe to PATH".
+  3. Pronto: abra pelo atalho "Yggdrasil" na Área de Trabalho ou no Menu Iniciar.
+     Abre uma janela preta (é o servidor) e o painel no navegador.
+     Fechar a janela preta desliga o Yggdrasil.
+  Se o Windows avisar "O Windows protegeu o computador", clique em
+  "Mais informações" > "Executar assim mesmo" (o programa não é assinado).
+
+Linux (Ubuntu, Mint, Zorin, Fedora...)
+  1. Extraia o .zip numa pasta sua (ex.: ~/Yggdrasil).
+  2. No terminal, dentro da pasta:   bash linux/instalar.sh
+     (com --iniciar-junto, o Yggdrasil também sobe sozinho ao entrar no sistema)
+  3. Procure "Yggdrasil" no menu de aplicativos.
+
+macOS
+  1. Instale o Python em https://www.python.org/downloads/macos/
+  2. Extraia o .zip e dê dois cliques em mac/Yggdrasil.command
+     (na primeira vez: botão direito > Abrir, por ser de fora da App Store).
+
+Sem instalar nada (qualquer sistema):   python3 servidor.py --abrir
+
+O endereço é http://localhost:8090
+Dica: coloque esse endereço como página inicial / nova aba do navegador.
+
+Para desinstalar: bash linux/instalar.sh --desinstalar (Linux) ou
+windows\instalar.bat -desinstalar (Windows). Depois é só apagar a pasta.
+Seus dados ficam na pasta: copie dados.json e perfis/ se quiser guardar.
+
+PRIMEIROS PASSOS
+----------------
+Na primeira vez, o Yggdrasil pede o seu nome e um PIN opcional: esse é o
+perfil principal. Outras pessoas da casa ganham perfis próprios em Ajustes > Perfis.
+O Yggdrasil começa vazio. Para começar:
+  - Links: botão + (ou tecla N), ou cole um link em qualquer lugar da página.
+    Para trazer os favoritos do navegador: Ajustes > Importar links.
+  - Agenda: botão "+ evento" no início, ou cole o link .ics da sua agenda do
+    Google/Outlook em Ajustes.
+  - Email: Email > "+ Gmail e outros" (com senha de app). Para Outlook, veja o README.md.
+  - Tema: Ajustes > Tema (ou tecla T).
+  - Celular: Ajustes > Endereços liga o acesso pela rede de casa.
+
+
+ONDE FICAM OS DADOS
+-------------------
+dados.json           tudo: links, grupos, eventos, tarefas, notas e ajustes
+dados.bak.json       a versão anterior (muda a cada salvamento)
+backups/             uma cópia por dia, guarda os últimos 14 dias
+Em Ajustes dá para baixar e restaurar um backup.
+perfis.json          os perfis (o PIN é guardado só como hash)
+email-contas/        logins do email; ia-config.json: a chave do Gemini
+ATENÇÃO: senhas de app, logins e a chave ficam em arquivos nesta pasta. No Linux e
+no macOS só o seu usuário consegue ler. No Windows não há essa proteção: use uma
+conta do Windows só sua (ou disco criptografado) e não compartilhe a pasta.
+Para mudar a porta: variável YGG_PORTA (ex.: YGG_PORTA=8091 python3 servidor.py).
+
+
+O QUE DÁ PARA FAZER
+-------------------
+Links
+  - Adicionar pelo botão +, pela tecla N, ou colando um link (Ctrl+V) em
+    qualquer lugar da página.
+  - Grupos (com ícone), tags, nota, e "favorito" para aparecer no início.
+  - A busca (tecla /) procura em nome, endereço, tags, grupo e nota.
+    Enter abre o primeiro resultado; se não achar, busca na web.
+  - "Mais usados" e "Recentes" se montam sozinhos conforme você clica.
+  - Importar: em Ajustes > Importar links, escolha os favoritos exportados do
+    navegador (.html) ou páginas HTML com links
+    (pode escolher várias de uma vez; cada pasta ou página vira um grupo).
+
+Agenda
+  - Eventos com horário ou dia todo, repetição (diária, semanal escolhendo os
+    dias, mensal, anual), data final, link da chamada, local e cor.
+  - Perto da hora, o botão "entrar" fica verde para abrir o link da chamada.
+  - Agenda externa: cole em Ajustes o link .ics publicado do Outlook ou do
+    Google Agenda para ver os eventos dele junto (só leitura).
+  - Lembretes por notificação do navegador (ligar em Ajustes).
+
+Email (Outlook, Gmail e outros, várias contas)
+  - Menu Email (ou o card "Caixa de entrada" no início): clique em
+    "Conectar Outlook", abra o link, digite o código e aceite a permissão.
+  - Mais contas: Email > Contas > "+ Outlook" (Outlook, Hotmail, Live,
+    Office) ou "+ Gmail e outros" (Gmail, Yahoo, iCloud, UOL, BOL, Terra,
+    Zoho, AOL, GMX ou qualquer email com IMAP). Gmail, Yahoo, iCloud e AOL
+    pedem uma "senha de app" (no Gmail: ative a verificação em duas etapas
+    e crie em myaccount.google.com/apppasswords). A senha fica em
+    email-contas/, só no seu PC. A caixa de entrada junta todas; os botões no topo filtram por
+    conta e trocam de pasta (Entrada, Enviados, Arquivo, Lixeira, Spam).
+  - Dá para escrever, responder, responder a todos, encaminhar (com anexos
+    de até 3 MB), arquivar, mandar para a lixeira, sinalizar, marcar como
+    não lido e baixar anexos. Atalhos na tela de email: C escrever,
+    R responder (Shift+R todos), F encaminhar, A arquivar, Delete lixeira.
+  - Resumo de hoje: no card do início e no lado direito da tela de email
+    (quando nenhum email está aberto, ou no botão do sol). Mostra quantos
+    chegaram, quantos não foram lidos, o que é de gente e o que é automático
+    (newsletter, no-reply, aba "Outros" do Outlook), o que ver primeiro e
+    quem mais mandou. Junta todas as contas.
+  - Modo escuro para ler: botão "Escuro/Claro" em cima do email aberto.
+  - Compilado das newsletters (Gemini): em Ajustes > Compilado das
+    newsletters, cole a chave da API (https://aistudio.google.com/apikey).
+    A cada 6 horas (00h, 06h, 12h e 18h; dá para mudar em Ajustes) o
+    Yggdrasil lê as newsletters e boletins que chegaram desde o compilado
+    anterior, de todas as contas, e o Gemini junta tudo por assunto num
+    compilado curto: a mesma notícia em várias newsletters vira um item só,
+    com as fontes clicáveis. Embaixo vem o que os outros emails pedem para
+    você fazer. Se o PC estiver desligado num horário, faz assim que abrir,
+    cobrindo o tempo que ficou de fora (até 2 dias). "Compilar agora" pega
+    do último horário até o momento. A chave fica em ia-config.json e os compilados em resumos/.
+  - Conta ligada antes desta versão aparece como "só leitura": clique em
+    "liberar envio" nela e entre de novo para poder responder daqui.
+  - Emails abrem com scripts sempre bloqueados; imagens de fora só aparecem
+    se você clicar em "mostrar imagens".
+  - Outlook: precisa de um app seu registrado no Microsoft Entra, com o
+    client_id em email-config.json (passo a passo no README.md). Os logins
+    ficam em email-contas/ (um arquivo por conta, separado por perfil).
+    Não compartilhe essa pasta.
+
+Tarefas e notas
+  - Lista rápida de tarefas e um rascunho de notas que salva sozinho.
+
+Temas: mais de 25, quase todos com versão clara e escura e o modo
+"preto absoluto" para tela OLED (Ajustes > Tema; a tecla T troca).
+
+
+ATALHOS
+-------
+/ ou Ctrl+K   buscar
+N             novo link
+E             novo evento
+T             trocar tema
+Alt+1..5      início, links, agenda, email, ajustes
+
+APP ANDROID
+-----------
+Em Ajustes > App Android (abrindo o Yggdrasil no celular) tem o link para baixar o
+android/Yggdrasil.apk. O app abre o Yggdrasil em tela cheia e, mesmo fechado, confere o
+PC a cada ~15 minutos (/api/notificacoes) e avisa de email novo, compromisso chegando e
+cada compilado das newsletters. Só funciona no mesmo wifi do PC (fora de casa, precisaria de VPN, ex.: Tailscale).
+Para os emails avisarem pela rede, o perfil precisa ter PIN (mesma regra do email no celular).
+O código está em android/ e compila com android/compilar.sh (sem Android Studio).
+
+NOTIFICAÇÕES NO NAVEGADOR
+-------------------------
+Ajustes > Notificações: com uma aba do Yggdrasil aberta, avisa de email novo, compilado
+pronto e compromissos. O botão "Testar" pede a permissão e manda uma notificação de teste.
+
+ACESSO PELA REDE (celular etc.)
+-------------------------------
+O padrão é "só este PC". Para ligar a rede, todos os perfis precisam ter PIN
+(6 a 8 números); pela rede, perfil sem PIN não abre. Para o celular abrir o
+Yggdrasil, ligue em Ajustes > Endereços (só dá no próprio PC, perfil principal) e
+reinicie o servidor. A escolha fica em servidor-config.json. YGG_REDE=1 também liga.
+Veja também README.md, PRIVACIDADE.md, CREDITOS.md e LICENSE.

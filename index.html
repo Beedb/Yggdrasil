@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Yggdrasil</title>
+    <meta name="description" content="Yggdrasil · links do dia a dia, agenda e tarefas" />
+
+    <!-- Tema salvo antes do CSS, para não piscar o tema errado -->
+    <script>try { var t = localStorage.getItem('yggTema'); if (t) document.documentElement.dataset.tema = t; if (localStorage.getItem('yggPreto')) document.documentElement.dataset.preto = '1'; } catch (e) {}</script>
+
+    <link rel="stylesheet" href="assets/fonts/fonts.css" />
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="icon" id="favicon" href="data:," />
+</head>
+<body>
+    <svg id="grade" aria-hidden="true"></svg>
+
+    <a class="pular" href="#vista">Pular para o conteúdo</a>
+
+    <!-- ===== BARRA LATERAL ===== -->
+    <nav class="lateral" aria-label="Navegação">
+        <a href="#inicio" class="logo" title="Yggdrasil"><span class="arvore" data-pixel="arvore"></span></a>
+        <div class="lateral-nav">
+            <a href="#inicio" data-vista="inicio" title="Início (Alt+1)"><i class="fa-solid fa-house"></i><span>Início</span></a>
+            <a href="#links" data-vista="links" title="Links (Alt+2)"><i class="fa-solid fa-link"></i><span>Links</span></a>
+            <a href="#agenda" data-vista="agenda" title="Agenda (Alt+3)"><i class="fa-solid fa-calendar-days"></i><span>Agenda</span></a>
+            <a href="#email" data-vista="email" title="Email (Alt+4)"><i class="fa-solid fa-envelope"></i><span>Email</span><b class="badge" hidden></b></a>
+            <a href="#ajustes" data-vista="ajustes" title="Ajustes (Alt+5)"><i class="fa-solid fa-sliders"></i><span>Ajustes</span></a>
+        </div>
+        <div class="lateral-fim">
+            <button type="button" class="lateral-btn perfil-btn" id="perfil-btn" data-acao="trocar-perfil" title="Trocar perfil" hidden></button>
+            <button type="button" class="lateral-btn" data-acao="novo-link" title="Novo link (N)"><i class="fa-solid fa-plus"></i></button>
+            <button type="button" class="lateral-btn" data-acao="trocar-tema" title="Trocar tema (T)"><i class="fa-solid fa-palette"></i></button>
+            <div class="lateral-hora" aria-hidden="true"><span data-relogio="h">--</span><span data-relogio="m">--</span></div>
+            <span class="sync" id="sync" title="Salvo"></span>
+        </div>
+    </nav>
+
+    <main id="vista" tabindex="-1"></main>
+
+    <dialog id="modal" aria-labelledby="modal-titulo"></dialog>
+    <div id="avisos" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
